@@ -16,7 +16,7 @@ $(function () {
             $this.prop("disabled", true);
 
             $.ajax({
-                url: "http://localhost:3000/api/contact",
+                url: (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '') + "/api/contact",
                 type: "POST",
                 data: {
                     name: name,

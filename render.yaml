@@ -1,0 +1,15 @@
+# Render.com backend deployment
+# Use this when creating a Web Service on Render
+# Or configure manually: Start Command = node server.js
+
+services:
+  - type: web
+    name: swap-remodeling-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASSWORD
+        sync: false

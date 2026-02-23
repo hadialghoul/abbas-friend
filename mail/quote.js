@@ -17,7 +17,7 @@ $(function () {
         $btn.prop("disabled", true);
 
         $.ajax({
-            url: "http://localhost:3000/api/quote",
+            url: (typeof API_BASE_URL !== 'undefined' ? API_BASE_URL : '') + "/api/quote",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify({ name: name, address: address, email: email, phone: phone, message: message }),

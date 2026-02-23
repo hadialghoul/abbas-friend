@@ -1,4 +1,4 @@
-// API Base URL - uses localhost for dev, Render URL for production
+// API Base URL - localhost uses Express; production uses same origin (Vercel API routes)
 var API_BASE_URL = window.location.hostname === 'localhost' 
   ? 'http://localhost:3000' 
-  : 'https://swap-remodeling-api-production.up.railway.app';
+  : window.location.origin;

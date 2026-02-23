@@ -1,38 +1,24 @@
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
-const path = require('path');
+const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Recipient email - all form submissions go here
-const RECIPIENT_EMAIL = 'Sam@swap-remodeling.com';
+const RECIPIENT_EMAIL = 'sam@swap-remodeling.com';
 
-// Validate email config
-if (!process.env.EMAIL_USER || !process.env.EMAIL_PASSWORD) {
-  console.error('ERROR: Set EMAIL_USER and EMAIL_PASSWORD in .env file (see .env.example)');
+// From email - use onboarding@resend.dev for testing, or your verified domain
+const FROM_EMAIL = process.env.FROM_EMAIL || 'Swap Remodeling <onboarding@resend.dev>';
+
+// Validate Resend API key
+if (!process.env.RESEND_API_KEY) {
+  console.error('ERROR: Set RESEND_API_KEY in environment variables');
   process.exit(1);
 }
 
-// Configure nodemailer for Gmail / Google Workspace
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  }
-});
-
-// Verify email connection on startup
-transporter.verify(function(error, success) {
-  if (error) {
-    console.log('Email connection error:', error.message);
-  } else {
-    console.log('Email server is ready to send messages');
-  }
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.use(cors({
   origin: '*',
@@ -54,8 +40,8 @@ app.post('/api/contact', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    const { data, error } = await resend.emails.send({
+      from: FROM_EMAIL,
       to: RECIPIENT_EMAIL,
       replyTo: email,
       subject: `New Service Request - ${name}`,
@@ -65,9 +51,13 @@ app.post('/api/contact', async (req, res) => {
             `Email: ${email}\n` +
             `Phone: ${phone}\n\n` +
             `Job Description:\n${message}`
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error('Contact form error:', error);
+      return res.status(500).json({ error: 'Failed to send message' });
+    }
+
     res.json({ success: true, message: 'Message sent successfully' });
   } catch (error) {
     console.error('Contact form error:', error);
@@ -84,8 +74,8 @@ app.post('/api/quote', async (req, res) => {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    const { data, error } = await resend.emails.send({
+      from: FROM_EMAIL,
       to: RECIPIENT_EMAIL,
       replyTo: email,
       subject: `Get A Quote Request - ${name}`,
@@ -95,9 +85,13 @@ app.post('/api/quote', async (req, res) => {
             `Email: ${email}\n` +
             `Phone: ${phone}\n\n` +
             `Job Description:\n${message}`
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (error) {
+      console.error('Quote form error:', error);
+      return res.status(500).json({ error: 'Failed to send quote request' });
+    }
+
     res.json({ success: true, message: 'Quote request sent successfully' });
   } catch (error) {
     console.error('Quote form error:', error);
@@ -109,4 +103,5 @@ app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
   console.log(`Contact form: POST http://localhost:${PORT}/api/contact`);
   console.log(`Quote form: POST http://localhost:${PORT}/api/quote`);
+  console.log('Email: Resend ready');
 });

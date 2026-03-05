@@ -18,12 +18,23 @@ $(function () {
             var service = $("select#service").val();
             var message = $("textarea#message").val().trim();
 
+            var US_STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
             function showError(msg) {
                 $('#success').html("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + msg + "</strong></div>");
             }
             function isValidUSAPhone(p) {
                 var digits = p.replace(/\D/g, '');
-                return (digits.length === 11 && digits.charAt(0) === '1') || (digits.length === 10);
+                if (digits.length !== 10 && digits.length !== 11) return false;
+                if (digits.length === 11 && digits.charAt(0) !== '1') return false;
+                if (p.trim().startsWith('+')) {
+                    var afterPlus = p.trim().substring(1).replace(/\s/g, '');
+                    var firstDigit = afterPlus.match(/\d/);
+                    if (firstDigit && firstDigit[0] !== '1') return false;
+                }
+                return true;
+            }
+            function isValidUSState(s) {
+                return s && US_STATES.indexOf(s.toUpperCase().trim()) !== -1;
             }
 
             if (!street || !streetNumber || !city || !state || !zip) {
@@ -32,6 +43,14 @@ $(function () {
             }
             if (!/^\d{5}(-\d{4})?$/.test(zip)) {
                 showError("Please enter a valid US ZIP Code (e.g., 12345 or 12345-6789).");
+                return;
+            }
+            if (!/\d/.test(streetNumber)) {
+                showError("Street Number must contain a number.");
+                return;
+            }
+            if (!isValidUSState(state)) {
+                showError("Please enter a valid 2-letter US State code (e.g., CA, MA, NY).");
                 return;
             }
             if (!isValidUSAPhone(phone)) {

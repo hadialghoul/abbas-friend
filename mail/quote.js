@@ -3,15 +3,22 @@ $(function () {
         $("#quoteSuccess").html('<div class="alert alert-danger">' + msg + '</div>');
     }
 
+    var US_STATES = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY","DC"];
+
     function isValidUSAPhone(phone) {
         var digits = phone.replace(/\D/g, '');
-        if (digits.length === 11 && digits.charAt(0) === '1') {
-            return digits.length === 11;
+        if (digits.length !== 10 && digits.length !== 11) return false;
+        if (digits.length === 11 && digits.charAt(0) !== '1') return false;
+        if (phone.trim().startsWith('+')) {
+            var afterPlus = phone.trim().substring(1).replace(/\s/g, '');
+            var firstDigit = afterPlus.match(/\d/);
+            if (firstDigit && firstDigit[0] !== '1') return false;
         }
-        if (digits.length === 10) {
-            return true;
-        }
-        return false;
+        return true;
+    }
+
+    function isValidUSState(state) {
+        return state && US_STATES.indexOf(state.toUpperCase().trim()) !== -1;
     }
 
     $("#quoteForm").on("submit", function (e) {
@@ -38,9 +45,19 @@ $(function () {
             return;
         }
 
+        if (!/\d/.test(streetNumber)) {
+            showError("Street Number must contain a number.");
+            return;
+        }
+
         var zipRegex = /^\d{5}(-\d{4})?$/;
         if (!zipRegex.test(zip)) {
             showError("Please enter a valid US ZIP Code (e.g., 12345 or 12345-6789).");
+            return;
+        }
+
+        if (!isValidUSState(state)) {
+            showError("Please enter a valid 2-letter US State code (e.g., CA, MA, NY).");
             return;
         }
 

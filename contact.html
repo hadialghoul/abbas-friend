@@ -120,7 +120,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-4 control-group">
-                                    <input type="text" class="form-control p-4" id="state" placeholder="State" required="required" data-validation-required-message="Please enter state" />
+                                    <input type="text" class="form-control p-4" id="state" placeholder="State (e.g. CA, MA)" required="required" maxlength="2" data-validation-required-message="Please enter valid 2-letter US state" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="col-sm-6 control-group">
                                     <select class="form-control p-4" id="service" required="required" data-validation-required-message="Please select a service">
-                                        <option value="">Select a Service</option>
+                                        <option value="">Choose a Service</option>
                                         <option value="Handyman">Handyman</option>
                                         <option value="Electrical">Electrical</option>
                                         <option value="Plumbing">Plumbing</option>

@@ -8,7 +8,7 @@
     <meta content="Swap Remodeling, Home Improvement, Remodeling, Maintenance, Electrical, Plumbing" name="keywords">
     <meta content="Swap Remodeling is a home improvement company that provides a wide range of services to the community." name="description">
 
-    <!-- Favicon -->+++++++++++
+  
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
@@ -24,6 +24,26 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <style>
+        .contact-form-box #quoteService {
+            color: #212529 !important;
+            background-color: #fff !important;
+            -webkit-text-fill-color: #212529 !important;
+            font-size: 1rem;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px 12px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            padding-right: 2.5rem;
+        }
+        .contact-form-box #quoteService option {
+            color: #212529 !important;
+            background-color: #fff !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -90,20 +110,15 @@
             <div class="bg-appointment rounded" style="min-height: 500px;">
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-lg-6 py-5">
-                        <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
+                        <div class="rounded p-5 my-5 contact-form-box" style="background: rgba(55, 55, 63, .7);">
                             <h1 class="text-center text-white mb-4">Contact Us</h1>
                             <div id="quoteSuccess" class="mb-3"></div>
                             <form id="quoteForm">
                                 <div class="form-group">
                                     <input type="text" id="quoteName" class="form-control border-0 p-4" placeholder="Full Name" required="required" />
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-8">
-                                        <input type="text" id="quoteStreet" class="form-control border-0 p-4" placeholder="Street" required="required" />
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="text" id="quoteStreetNumber" class="form-control border-0 p-4" placeholder="Number" required="required" />
-                                    </div>
+                                <div class="form-group">
+                                    <input type="text" id="quoteStreet" class="form-control border-0 p-4" placeholder="Street" required="required" />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
@@ -124,8 +139,8 @@
                                     <small class="text-white-50">USA only: +1 and 10 digits</small>
                                 </div>
                                 <div class="form-group">
-                                    <select id="quoteService" class="form-control border-0 p-4" required="required">
-                                        <option value="">Choose a Service</option>
+                                    <select id="quoteService" class="form-control border-0 p-4" required="required" style="color: #212529 !important; background-color: #fff !important;">
+                                        <option value="" selected disabled>Choose a Service</option>
                                         <option value="Handyman">Handyman</option>
                                         <option value="Electrical">Electrical</option>
                                         <option value="Plumbing">Plumbing</option>

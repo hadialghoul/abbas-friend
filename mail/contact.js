@@ -1,6 +1,6 @@
 $(function () {
 
-    $("#contactForm input, #contactForm textarea").jqBootstrapValidation({
+    $("#contactForm input, #contactForm textarea, #contactForm select").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function ($form, event, errors) {
         },
@@ -9,7 +9,6 @@ $(function () {
 
             var name = $("input#name").val().trim();
             var street = $("input#street").val().trim();
-            var streetNumber = $("input#streetNumber").val().trim();
             var city = $("input#city").val().trim();
             var state = $("input#state").val().trim();
             var zip = $("input#zip").val().trim();
@@ -37,16 +36,12 @@ $(function () {
                 return s && US_STATES.indexOf(s.toUpperCase().trim()) !== -1;
             }
 
-            if (!street || !streetNumber || !city || !state || !zip) {
-                showError("Please complete the full address: Street, Number, City, State, and ZIP Code.");
+            if (!street || !city || !state || !zip) {
+                showError("Please complete the full address: Street, City, State, and ZIP Code.");
                 return;
             }
             if (!/^\d{5}(-\d{4})?$/.test(zip)) {
                 showError("Please enter a valid US ZIP Code (e.g., 12345 or 12345-6789).");
-                return;
-            }
-            if (!/\d/.test(streetNumber)) {
-                showError("Street Number must contain a number.");
                 return;
             }
             if (!isValidUSState(state)) {
@@ -62,7 +57,7 @@ $(function () {
                 return;
             }
 
-            var address = streetNumber + " " + street + ", " + city + ", " + state + " " + zip;
+            var address = street + ", " + city + ", " + state + " " + zip;
             $this = $("#sendMessageButton");
             $this.prop("disabled", true);
 

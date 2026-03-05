@@ -26,7 +26,6 @@ $(function () {
 
         var name = $("#quoteName").val().trim();
         var street = $("#quoteStreet").val().trim();
-        var streetNumber = $("#quoteStreetNumber").val().trim();
         var city = $("#quoteCity").val().trim();
         var state = $("#quoteState").val().trim();
         var zip = $("#quoteZip").val().trim();
@@ -40,13 +39,8 @@ $(function () {
             return;
         }
 
-        if (!street || !streetNumber || !city || !state || !zip) {
-            showError("Please complete the full address: Street, Number, City, State, and ZIP Code.");
-            return;
-        }
-
-        if (!/\d/.test(streetNumber)) {
-            showError("Street Number must contain a number.");
+        if (!street || !city || !state || !zip) {
+            showError("Please complete the full address: Street, City, State, and ZIP Code.");
             return;
         }
 
@@ -71,7 +65,7 @@ $(function () {
             return;
         }
 
-        var address = streetNumber + " " + street + ", " + city + ", " + state + " " + zip;
+        var address = street + ", " + city + ", " + state + " " + zip;
         var $btn = $("#quoteSubmitBtn");
         $btn.prop("disabled", true);
 

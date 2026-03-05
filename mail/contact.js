@@ -1,6 +1,27 @@
 $(function () {
+    // Custom service dropdown
+    $("#serviceDisplay").on("click", function (e) {
+        e.stopPropagation();
+        $("#serviceOptions").toggleClass("show");
+    });
+    $(document).on("click", function () { $("#serviceOptions").removeClass("show"); });
+    $("#contactForm .custom-service-option").on("click", function (e) {
+        e.stopPropagation();
+        var val = $(this).data("value");
+        var text = $(this).text();
+        $("#serviceDisplay").text(text);
+        $("#service").val(val);
+        $("#serviceOptions").removeClass("show");
+        $("#contactForm .custom-service-option").removeClass("selected");
+        $(this).addClass("selected");
+    });
+    $("#contactForm").on("reset", function () {
+        $("#serviceDisplay").text("Choose a Service");
+        $("#service").val("");
+        $("#contactForm .custom-service-option").removeClass("selected");
+    });
 
-    $("#contactForm input, #contactForm textarea, #contactForm select").jqBootstrapValidation({
+    $("#contactForm input, #contactForm textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function ($form, event, errors) {
         },

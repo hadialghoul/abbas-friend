@@ -25,15 +25,28 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-        #service {
-            background-color: #fff !important;
-            color: #333 !important;
-            cursor: pointer;
+        .custom-service-dropdown { position: relative; }
+        .custom-service-display {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; height: calc(1.5em + 1rem + 2px); padding: 0.5rem 1rem;
+            font-size: 1rem; color: #212529; background-color: #fff; border: 1px solid #ced4da;
+            border-radius: 0; cursor: pointer; text-align: left;
         }
-        #service option {
-            background-color: #fff;
-            color: #333;
+        .custom-service-display::after {
+            content: ""; border-left: 5px solid transparent; border-right: 5px solid transparent;
+            border-top: 6px solid #212529; margin-left: 0.5rem;
         }
+        .custom-service-options {
+            display: none; position: absolute; top: 100%; left: 0; right: 0;
+            background: #fff; border: 1px solid #dee2e6; max-height: 200px; overflow-y: auto;
+            z-index: 1000; box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+        }
+        .custom-service-options.show { display: block; }
+        .custom-service-option {
+            padding: 0.75rem 1rem; color: #212529; cursor: pointer; border-bottom: 1px solid #eee;
+        }
+        .custom-service-option:hover, .custom-service-option.selected { background-color: #f8f9fa; }
+        #contactForm .custom-service-dropdown select { position: absolute; opacity: 0; pointer-events: none; height: 0; overflow: hidden; }
     </style>
 </head>
 
@@ -48,7 +61,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="row bg-white border-bottom d-none d-lg-flex">
-                    <div class="col-lg-7 text-left">
+                    <div class="col-lg-12 text-left d-flex flex-wrap align-items-center">
                         <div class="h-100 d-inline-flex align-items-center py-2 px-3">
                             <i class="fa fa-envelope text-primary mr-2"></i>
                             <small>Sam@swap-remodeling.com</small>
@@ -57,9 +70,14 @@
                             <i class="fa fa-phone-alt text-primary mr-2"></i>
                             <small>339-213-5576</small>
                         </div>
-                    </div>
-                    <div class="col-lg-5 text-right">
-                       
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-id-card text-primary mr-2"></i>
+                            <small>HIC #203617</small>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-shield-alt text-primary mr-2"></i>
+                            <small>Insurance: NXT3RCKD7Y-03-GL</small>
+                        </div>
                     </div>
                 </div>
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
@@ -104,7 +122,8 @@
         <div class="container py-5">
             <div class="text-center pb-2">
                 <h6 class="text-uppercase">Contact Us</h6>
-                <h1 class="mb-4">Contact For Any Query</h1>
+                <h1 class="mb-2">Contact For Any Query</h1>
+                <p class="mb-4">Same day free estimate — Once you submit your information we will call you back in 5 min</p>
             </div>
             <div class="row">
                 <div class="col-lg-6 mb-5 mb-lg-0">
@@ -127,7 +146,7 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-4 control-group">
-                                    <input type="text" class="form-control p-4" id="state" placeholder="State (e.g. CA, MA)" required="required" maxlength="2" data-validation-required-message="Please enter valid 2-letter US state" />
+                                    <input type="text" class="form-control p-4" id="state" placeholder="State" required="required" maxlength="2" data-validation-required-message="Please enter valid 2-letter US state" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-4 control-group">
@@ -142,13 +161,21 @@
                                 </div>
                                 <div class="col-sm-6 control-group">
                                     <input type="tel" class="form-control p-4" id="phone" placeholder="Phone (+1 339-213-5576)" required="required" data-validation-required-message="USA only: +1 and 10 digits" />
-                                    <small class="text-muted">USA only: +1 and 10 digits</small>
+                                   
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <select class="form-control p-4" id="service" required="required" data-validation-required-message="Please select a service">
-                                    <option value="" selected disabled>Choose a Service</option>
+                            <div class="control-group custom-service-dropdown">
+                                <div class="custom-service-display form-control p-4" id="serviceDisplay">Choose a Service</div>
+                                <div class="custom-service-options" id="serviceOptions">
+                                    <div class="custom-service-option" data-value="Handyman">Handyman</div>
+                                    <div class="custom-service-option" data-value="Electrical">Electrical</div>
+                                    <div class="custom-service-option" data-value="Plumbing">Plumbing</div>
+                                    <div class="custom-service-option" data-value="Remodeling">Remodeling</div>
+                                    <div class="custom-service-option" data-value="Scheduled Maintenance">Scheduled Maintenance</div>
+                                </div>
+                                <select id="service" name="service" required="required">
+                                    <option value="">Choose a Service</option>
                                     <option value="Handyman">Handyman</option>
                                     <option value="Electrical">Electrical</option>
                                     <option value="Plumbing">Plumbing</option>

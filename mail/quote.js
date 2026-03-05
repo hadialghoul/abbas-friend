@@ -1,4 +1,28 @@
 $(function () {
+    // Custom service dropdown
+    $("#quoteServiceDisplay").on("click", function (e) {
+        e.stopPropagation();
+        $("#quoteServiceOptions").toggleClass("show");
+    });
+    $(document).on("click", function () {
+        $("#quoteServiceOptions").removeClass("show");
+    });
+    $(".custom-service-option").on("click", function (e) {
+        e.stopPropagation();
+        var val = $(this).data("value");
+        var text = $(this).text();
+        $("#quoteServiceDisplay").text(text);
+        $("#quoteService").val(val);
+        $("#quoteServiceOptions").removeClass("show");
+        $(".custom-service-option").removeClass("selected");
+        $(this).addClass("selected");
+    });
+    $("#quoteForm").on("reset", function () {
+        $("#quoteServiceDisplay").text("Choose a Service");
+        $("#quoteService").val("");
+        $(".custom-service-option").removeClass("selected");
+    });
+
     function showError(msg) {
         $("#quoteSuccess").html('<div class="alert alert-danger">' + msg + '</div>');
     }

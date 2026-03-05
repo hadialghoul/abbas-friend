@@ -25,24 +25,58 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-        .contact-form-box #quoteService {
-            color: #212529 !important;
-            background-color: #fff !important;
-            -webkit-text-fill-color: #212529 !important;
+        .custom-service-dropdown {
+            position: relative;
+        }
+        .custom-service-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: calc(1.5em + 1rem + 2px);
+            padding: 0.5rem 1rem;
             font-size: 1rem;
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23212529' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 16px 12px;
+            color: #212529;
+            background-color: #fff;
+            border: none;
+            border-radius: 0;
             cursor: pointer;
-            -webkit-appearance: none;
-            appearance: none;
-            padding-right: 2.5rem;
+            text-align: left;
         }
-        .contact-form-box #quoteService option {
-            color: #212529 !important;
-            background-color: #fff !important;
+        .custom-service-display::after {
+            content: "";
+            width: 0;
+            height: 0;
+            margin-left: 0.5rem;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #212529;
         }
+        .custom-service-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+        }
+        .custom-service-options.show { display: block; }
+        .custom-service-option {
+            padding: 0.75rem 1rem;
+            color: #212529;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        .custom-service-option:hover, .custom-service-option.selected {
+            background-color: #f8f9fa;
+        }
+        .custom-service-option.placeholder { color: #6c757d; }
+        #quoteService { position: absolute; opacity: 0; pointer-events: none; height: 0; overflow: hidden; }
     </style>
 </head>
 
@@ -57,7 +91,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="row bg-white border-bottom d-none d-lg-flex">
-                    <div class="col-lg-7 text-left">
+                    <div class="col-lg-12 text-left d-flex flex-wrap align-items-center">
                         <div class="h-100 d-inline-flex align-items-center py-2 px-3">
                             <i class="fa fa-envelope text-primary mr-2"></i>
                             <small>Sam@swap-remodeling.com</small>
@@ -66,9 +100,14 @@
                             <i class="fa fa-phone-alt text-primary mr-2"></i>
                             <small>339-213-5576</small>
                         </div>
-                    </div>
-                    <div class="col-lg-5 text-right">
-                       
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-id-card text-primary mr-2"></i>
+                            <small>HIC #203617</small>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-shield-alt text-primary mr-2"></i>
+                            <small>Insurance: NXT3RCKD7Y-03-GL</small>
+                        </div>
                     </div>
                 </div>
                 <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
@@ -105,13 +144,14 @@
     <!-- Header End -->
 
       <!-- Appointment Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="bg-appointment rounded" style="min-height: 500px;">
+    <div class="container-fluid py-5 px-0">
+        <div class="bg-appointment rounded" style="min-height: 500px;">
+            <div class="container py-5">
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-lg-6 py-5">
                         <div class="rounded p-5 my-5 contact-form-box" style="background: rgba(55, 55, 63, .7);">
                             <h1 class="text-center text-white mb-4">Contact Us</h1>
+                            <p class="text-center text-white mb-4">Same day free estimate — Once you submit your information we will call you back in 5 min</p>
                             <div id="quoteSuccess" class="mb-3"></div>
                             <form id="quoteForm">
                                 <div class="form-group">
@@ -125,7 +165,7 @@
                                         <input type="text" id="quoteCity" class="form-control border-0 p-4" placeholder="City" required="required" />
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input type="text" id="quoteState" class="form-control border-0 p-4" placeholder="State (e.g. CA, MA)" required="required" maxlength="2" />
+                                        <input type="text" id="quoteState" class="form-control border-0 p-4" placeholder="State" required="required" maxlength="2" />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <input type="text" id="quoteZip" class="form-control border-0 p-4" placeholder="ZIP Code" required="required" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" />
@@ -136,11 +176,19 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="tel" id="quotePhone" class="form-control border-0 p-4" placeholder="Phone (+1 339-213-5576)" required="required" />
-                                    <small class="text-white-50">USA only: +1 and 10 digits</small>
+                                  
                                 </div>
-                                <div class="form-group">
-                                    <select id="quoteService" class="form-control border-0 p-4" required="required" style="color: #212529 !important; background-color: #fff !important;">
-                                        <option value="" selected disabled>Choose a Service</option>
+                                <div class="form-group custom-service-dropdown">
+                                    <div class="custom-service-display form-control border-0 p-4" id="quoteServiceDisplay">Choose a Service</div>
+                                    <div class="custom-service-options" id="quoteServiceOptions">
+                                        <div class="custom-service-option" data-value="Handyman">Handyman</div>
+                                        <div class="custom-service-option" data-value="Electrical">Electrical</div>
+                                        <div class="custom-service-option" data-value="Plumbing">Plumbing</div>
+                                        <div class="custom-service-option" data-value="Remodeling">Remodeling</div>
+                                        <div class="custom-service-option" data-value="Scheduled Maintenance">Scheduled Maintenance</div>
+                                    </div>
+                                    <select id="quoteService" name="quoteService" required="required">
+                                        <option value="">Choose a Service</option>
                                         <option value="Handyman">Handyman</option>
                                         <option value="Electrical">Electrical</option>
                                         <option value="Plumbing">Plumbing</option>

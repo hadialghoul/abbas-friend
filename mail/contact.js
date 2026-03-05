@@ -6,12 +6,44 @@ $(function () {
         },
         submitSuccess: function ($form, event) {
             event.preventDefault();
-            var name = $("input#name").val();
-            var address = $("input#address").val();
-            var email = $("input#email").val();
-            var phone = $("input#phone").val();
-            var message = $("textarea#message").val();
 
+            var name = $("input#name").val().trim();
+            var street = $("input#street").val().trim();
+            var streetNumber = $("input#streetNumber").val().trim();
+            var city = $("input#city").val().trim();
+            var state = $("input#state").val().trim();
+            var zip = $("input#zip").val().trim();
+            var email = $("input#email").val().trim();
+            var phone = $("input#phone").val().trim();
+            var service = $("select#service").val();
+            var message = $("textarea#message").val().trim();
+
+            function showError(msg) {
+                $('#success').html("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>" + msg + "</strong></div>");
+            }
+            function isValidUSAPhone(p) {
+                var digits = p.replace(/\D/g, '');
+                return (digits.length === 11 && digits.charAt(0) === '1') || (digits.length === 10);
+            }
+
+            if (!street || !streetNumber || !city || !state || !zip) {
+                showError("Please complete the full address: Street, Number, City, State, and ZIP Code.");
+                return;
+            }
+            if (!/^\d{5}(-\d{4})?$/.test(zip)) {
+                showError("Please enter a valid US ZIP Code (e.g., 12345 or 12345-6789).");
+                return;
+            }
+            if (!isValidUSAPhone(phone)) {
+                showError("Please enter a valid USA phone number (+1 and 10 digits).");
+                return;
+            }
+            if (!service) {
+                showError("Please select a service.");
+                return;
+            }
+
+            var address = streetNumber + " " + street + ", " + city + ", " + state + " " + zip;
             $this = $("#sendMessageButton");
             $this.prop("disabled", true);
 
@@ -23,6 +55,7 @@ $(function () {
                     address: address,
                     email: email,
                     phone: phone,
+                    service: service,
                     message: message
                 },
                 cache: false,

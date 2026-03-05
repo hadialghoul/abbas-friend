@@ -8,7 +8,7 @@
     <meta content="Swap Remodeling, Home Improvement, Remodeling, Maintenance, Electrical, Plumbing" name="keywords">
     <meta content="Swap Remodeling is a home improvement company that provides a wide range of services to the community." name="description">
 
-    <!-- Favicon -->
+    <!-- Favicon -->+++++++++++
     <link href="img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
@@ -97,14 +97,41 @@
                                 <div class="form-group">
                                     <input type="text" id="quoteName" class="form-control border-0 p-4" placeholder="Full Name" required="required" />
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" id="quoteAddress" class="form-control border-0 p-4" placeholder="Address" required="required" />
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <input type="text" id="quoteStreet" class="form-control border-0 p-4" placeholder="Street" required="required" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="quoteStreetNumber" class="form-control border-0 p-4" placeholder="Number" required="required" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="quoteCity" class="form-control border-0 p-4" placeholder="City" required="required" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="quoteState" class="form-control border-0 p-4" placeholder="State" required="required" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" id="quoteZip" class="form-control border-0 p-4" placeholder="ZIP Code" required="required" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" />
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" id="quoteEmail" class="form-control border-0 p-4" placeholder="Email" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="tel" id="quotePhone" class="form-control border-0 p-4" placeholder="Phone Number" required="required" />
+                                    <input type="tel" id="quotePhone" class="form-control border-0 p-4" placeholder="Phone (+1 339-213-5576)" required="required" />
+                                    <small class="text-white-50">USA only: +1 and 10 digits</small>
+                                </div>
+                                <div class="form-group">
+                                    <select id="quoteService" class="form-control border-0 p-4" required="required">
+                                        <option value="">Select a Service</option>
+                                        <option value="Handyman">Handyman</option>
+                                        <option value="Electrical">Electrical</option>
+                                        <option value="Plumbing">Plumbing</option>
+                                        <option value="Remodeling">Remodeling</option>
+                                        <option value="Scheduled Maintenance">Scheduled Maintenance</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <textarea id="quoteMessage" class="form-control border-0 p-4" rows="4" placeholder="Job Description" required="required"></textarea>

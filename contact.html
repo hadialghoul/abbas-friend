@@ -106,17 +106,49 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-6 control-group">
-                                    <input type="text" class="form-control p-4" id="address" placeholder="Address" required="required" data-validation-required-message="Please enter your address" />
+                                    <input type="text" class="form-control p-4" id="street" placeholder="Street" required="required" data-validation-required-message="Please enter street" />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-4 control-group">
+                                    <input type="text" class="form-control p-4" id="streetNumber" placeholder="Number" required="required" data-validation-required-message="Please enter number" />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-sm-4 control-group">
+                                    <input type="text" class="form-control p-4" id="city" placeholder="City" required="required" data-validation-required-message="Please enter city" />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-sm-4 control-group">
+                                    <input type="text" class="form-control p-4" id="state" placeholder="State" required="required" data-validation-required-message="Please enter state" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-sm-6 control-group">
-                                    <input type="email" class="form-control p-4" id="email" placeholder="Email" required="required" data-validation-required-message="Please enter your email" />
+                                    <input type="text" class="form-control p-4" id="zip" placeholder="ZIP Code" required="required" pattern="[0-9]{5}(-[0-9]{4})?" data-validation-required-message="Please enter valid ZIP (12345 or 12345-6789)" maxlength="10" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="col-sm-6 control-group">
-                                    <input type="tel" class="form-control p-4" id="phone" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number" />
+                                    <input type="email" class="form-control p-4" id="email" placeholder="Email" required="required" data-validation-required-message="Please enter your email" />
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-sm-6 control-group">
+                                    <input type="tel" class="form-control p-4" id="phone" placeholder="Phone (+1 339-213-5576)" required="required" data-validation-required-message="USA only: +1 and 10 digits" />
+                                    <small class="text-muted">USA only: +1 and 10 digits</small>
+                                    <p class="help-block text-danger"></p>
+                                </div>
+                                <div class="col-sm-6 control-group">
+                                    <select class="form-control p-4" id="service" required="required" data-validation-required-message="Please select a service">
+                                        <option value="">Select a Service</option>
+                                        <option value="Handyman">Handyman</option>
+                                        <option value="Electrical">Electrical</option>
+                                        <option value="Plumbing">Plumbing</option>
+                                        <option value="Remodeling">Remodeling</option>
+                                        <option value="Scheduled Maintenance">Scheduled Maintenance</option>
+                                    </select>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>

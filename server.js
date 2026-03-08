@@ -47,7 +47,7 @@ app.use(express.static(__dirname));
 // Contact form endpoint (from contact.html)
 app.post('/api/contact', async (req, res) => {
   try {
-    const { name, address, email, phone, message } = req.body;
+    const { name, address, email, phone, service, message } = req.body;
 
     if (!name || !address || !email || !phone || !message) {
       return res.status(400).json({ error: 'All fields are required' });
@@ -62,7 +62,8 @@ app.post('/api/contact', async (req, res) => {
             `Full Name: ${name}\n` +
             `Address: ${address}\n` +
             `Email: ${email}\n` +
-            `Phone: ${phone}\n\n` +
+            `Phone: ${phone}\n` +
+            `Service: ${service || 'Not specified'}\n\n` +
             `Job Description:\n${message}`
     };
 
@@ -77,7 +78,7 @@ app.post('/api/contact', async (req, res) => {
 // Quote form endpoint (from index.html)
 app.post('/api/quote', async (req, res) => {
   try {
-    const { name, address, email, phone, message } = req.body;
+    const { name, address, email, phone, service, message } = req.body;
 
     if (!name || !address || !email || !phone || !message) {
       return res.status(400).json({ error: 'All fields are required' });
@@ -92,7 +93,8 @@ app.post('/api/quote', async (req, res) => {
             `Full Name: ${name}\n` +
             `Address: ${address}\n` +
             `Email: ${email}\n` +
-            `Phone: ${phone}\n\n` +
+            `Phone: ${phone}\n` +
+            `Service: ${service || 'Not specified'}\n\n` +
             `Job Description:\n${message}`
     };
 

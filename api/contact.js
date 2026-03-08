@@ -15,7 +15,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, address, email, phone, message } = req.body;
+  const { name, address, email, phone, service, message } = req.body;
 
   if (!name || !address || !email || !phone || !message) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -44,7 +44,8 @@ module.exports = async function handler(req, res) {
             `Full Name: ${name}\n` +
             `Address: ${address}\n` +
             `Email: ${email}\n` +
-            `Phone: ${phone}\n\n` +
+            `Phone: ${phone}\n` +
+            `Service: ${service || 'Not specified'}\n\n` +
             `Job Description:\n${message}`
     });
 
